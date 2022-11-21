@@ -19,7 +19,7 @@ export const show = async (req: Request, res: Response) => {
     res.status(200).json(frase);
   } else {
     res
-      .status(200)
+      .status(404)
       .json({ error: "Nenhum registro foi encontrado com o id informado" });
   }
 };

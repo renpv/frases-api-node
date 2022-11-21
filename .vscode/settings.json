@@ -17,5 +17,5 @@
       "password": "postgres"
     }
   ],
-  "sqltools.useNodeRuntime": true
+  "sqltools.useNodeRuntime": false
 }

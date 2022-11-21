@@ -1,0 +1,219 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API de Frases",
+    "description": "Esta simples API foi criada apenas com o intuito de aprendizado. ",
+    "version": "0.0.1 beta"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "frases",
+      "description": "Todas as operações para frases"
+    }
+  ],
+  "paths": {
+    "/frases": {
+      "post": {
+        "tags": ["frases"],
+        "summary": "Criar uma frase",
+        "description": "Você pode criar uma frase.",
+        "operationId": "criarFrase",
+        "requestBody": {
+          "description": "Enviar uma frase com autor",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/FraseSemId"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Frase"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["frases"],
+        "summary": "Retorna todas as frases",
+        "description": "Retorna todas as frases cadastradas no banco de dados",
+        "operationId": "listarFrases",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Frase"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/frases/{id}": {
+      "get": {
+        "tags": ["frases"],
+        "summary": "Buscar frase pelo ID",
+        "description": "",
+        "operationId": "listarFrase",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "O id da frase que precisa ser buscada. Use 1 para testar",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Frase"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID inválido"
+          },
+          "404": {
+            "description": "Frase não localizada"
+          }
+        }
+      },
+      "put": {
+        "tags": ["frases"],
+        "summary": "Atualizar frase",
+        "description": "Atualizar frase.",
+        "operationId": "atualizarFrase",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id da frase que será atualizada",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Atualizar uma frase existente no banco de dados",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/FraseSemId"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["frases"],
+        "summary": "Apagar frase",
+        "description": "Esta rota deve ser utilizada para apagar uma frase.",
+        "operationId": "apagarFrase",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da frase que será apagada",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "ID inválido"
+          },
+          "404": {
+            "description": "Frase não encontrada"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Frase": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "frase": {
+            "type": "string",
+            "example": "Não importa a cor quando duas mãos estão juntas projetando a mesma sombra"
+          },
+          "autor": {
+            "type": "string",
+            "example": "Martin Luther King"
+          }
+        }
+      },
+      "FraseSemId": {
+        "type": "object",
+        "properties": {
+          "frase": {
+            "type": "string",
+            "example": "Não importa a cor quando duas mãos estão juntas projetando a mesma sombra"
+          },
+          "autor": {
+            "type": "string",
+            "example": "Martin Luther King"
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "FrasesArray": {
+        "description": "Array de objetos frase",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Frase"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,13 +1,8 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 
-import * as ApiController from "../controllers/apiController";
 import * as FrasesController from "../controllers/frasesController";
 
 const router = Router();
-//Rotas de teste da API
-router.get("/ping", ApiController.ping);
-router.get("/random", ApiController.random);
-router.get("/nome/:nome", ApiController.nome);
 
 router.get("/frases", FrasesController.index);
 router.get("/frases/create", FrasesController.create);

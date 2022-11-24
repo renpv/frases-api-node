@@ -25,4 +25,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => res.status(404).send("Endpoint não encontrado"));
 
-app.listen(process.env.SERVER_PORT);
+app.listen(process.env.SERVER_PORT, () => {
+  console.log("Servidor iniciado na porta", process.env.SERVER_PORT);
+});
